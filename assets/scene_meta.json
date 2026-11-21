@@ -1,0 +1,58 @@
+{
+  "site": "Takht-i-Bahi Buddhist Monastery — Stupa Court",
+  "crs": "EPSG:32642",
+  "origin_utm": [
+    771275.35,
+    3797808.775,
+    402.094
+  ],
+  "origin_latlon": [
+    34.2860799,
+    71.946978
+  ],
+  "axes": "glTF Y-up: +X East, +Y Up, -Z North; metres; origin = plinth centre at court floor",
+  "plinth": {
+    "width_ew": 6.5,
+    "depth_ns": 6.75,
+    "height": 1.47
+  },
+  "court": {
+    "court_w": -7.2,
+    "court_e": 6.95,
+    "court_s": -6.83,
+    "court_n": 10.82
+  },
+  "stupa_scale": 0.776,
+  "drum_radius": 2.95,
+  "stupa_height": 9.65,
+  "ruins_bounds": [
+    [
+      -39.86,
+      -16.47,
+      -44.53
+    ],
+    [
+      46.59,
+      16.26,
+      29.68
+    ]
+  ],
+  "ruins_faces": 135706,
+  "hotspots": {
+    "stupa": [
+      0.0,
+      6.122101921052589,
+      -0.0
+    ],
+    "relic": [
+      2.272,
+      2.3747334999999565,
+      2.272
+    ],
+    "niche": [
+      -8.85,
+      1.75,
+      -3.4708333333333323
+    ]
+  }
+}

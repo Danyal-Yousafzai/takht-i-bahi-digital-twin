@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#0d0b09">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="description" content="Takht-i-Bahi AI Digital Twin — WebAR time-travel to the 2nd-century Gandharan Stupa Court. KPITB AI Challenge 2026.">
+  <title>Takht-i-Bahi Digital Twin</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Cinzel:wght@600;700&family=Noto+Nastaliq+Urdu:wght@400;600&family=Noto+Naskh+Arabic:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css?v=2">
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+      "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+    }
+  }
+  </script>
+</head>
+<body>
+  <!-- Live camera feed (AR mode) sits behind the transparent WebGL canvas -->
+  <video id="camera" playsinline muted autoplay></video>
+  <div id="stage"></div>
+
+  <!-- Hotspot pins are positioned every frame from their 3-D anchors -->
+  <div id="pins" aria-label="Points of interest"></div>
+
+  <!-- Loading screen -->
+  <div id="loader" role="status" aria-live="polite">
+    <div class="loader-inner">
+      <div class="loader-mark">
+        <svg viewBox="0 0 64 64" aria-hidden="true"><path d="M32 6v8M24 14h16M22 18h20M20 22h24M26 26h12v4H26zM14 44a18 14 0 0 1 36 0zM8 44h48v6H8zM4 50h56v6H4z" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round"/></svg>
+      </div>
+      <h1 class="loader-title">Takht-i-Bahi</h1>
+      <p class="loader-sub" data-i18n="loaderSub">Reconstructing the Stupa Court…</p>
+      <div class="progress"><span id="progressBar"></span></div>
+      <p class="loader-pct" id="progressText">0%</p>
+    </div>
+  </div>
+
+  <!-- ============ HUD ============ -->
+  <header class="hud-top">
+    <div class="brand glass">
+      <div class="badge" title="Khyber Pakhtunkhwa Information Technology Board">
+        <span class="badge-k">KP</span><span class="badge-itb">ITB</span>
+      </div>
+      <div class="brand-text">
+        <strong>Takht-i-Bahi</strong>
+        <span data-i18n="tagline">AI Digital Twin · UNESCO World Heritage</span>
+      </div>
+    </div>
+
+    <div class="mode-switch glass" role="tablist" aria-label="Viewing mode">
+      <button id="modeOrbit" class="mode-btn active" role="tab" aria-selected="true">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l8 4.5v9L12 21l-8-4.5v-9z M12 12l8-4.5 M12 12v9 M12 12L4 7.5"/></svg>
+        <span data-i18n="modeOrbit">3D Orbit</span>
+      </button>
+      <button id="modeAR" class="mode-btn" role="tab" aria-selected="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 8V5a1 1 0 0 1 1-1h3 M16 4h3a1 1 0 0 1 1 1v3 M20 16v3a1 1 0 0 1-1 1h-3 M8 20H5a1 1 0 0 1-1-1v-3"/><circle cx="12" cy="12" r="3.2"/></svg>
+        <span data-i18n="modeAR">Live AR</span>
+      </button>
+    </div>
+
+    <div class="tools">
+      <div class="lang glass" role="group" aria-label="Language">
+        <button data-lang="en" class="active">EN</button>
+        <button data-lang="ur" lang="ur">اردو</button>
+        <button data-lang="ps" lang="ps">پښتو</button>
+      </div>
+      <button id="btnReset" class="icon-btn glass" title="Reset camera" aria-label="Reset camera">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12a8 8 0 1 0 2.4-5.7 M4 4v4h4"/></svg>
+      </button>
+      <button id="btnFull" class="icon-btn glass" title="Full screen" aria-label="Toggle full screen">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9V4h5 M20 9V4h-5 M4 15v5h5 M20 15v5h-5"/></svg>
+      </button>
+      <button id="btnAbout" class="icon-btn glass" title="About" aria-label="About this project">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v6 M12 7.5v.01"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <!-- AR helper strip -->
+  <div id="arHint" class="ar-hint glass" hidden>
+    <span id="arStatus" data-i18n="arAlign">Drag to align · pinch to scale</span>
+    <button id="btnRecenter" class="chip" data-i18n="arRecenter">Re-centre</button>
+    <button id="btnGhost" class="chip" data-i18n="arGhost">Ghost ruins</button>
+  </div>
+
+  <!-- Info card for the selected hotspot -->
+  <aside id="card" class="card glass" hidden aria-live="polite">
+    <button class="card-close" id="cardClose" aria-label="Close">×</button>
+    <p class="card-kicker" id="cardKicker"></p>
+    <h2 id="cardTitle"></h2>
+    <p id="cardBody"></p>
+    <div class="card-actions">
+      <button id="btnSpeak" class="pill-btn">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9z M16.5 8.5a5 5 0 0 1 0 7 M19 6a8.5 8.5 0 0 1 0 12"/></svg>
+        <span data-i18n="listen">Listen</span>
+      </button>
+      <button id="btnXray" class="pill-btn ghost" hidden>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8"/><path d="M12 4v16 M4 12h16" opacity=".5"/></svg>
+        <span data-i18n="xray">X-ray view</span>
+      </button>
+    </div>
+  </aside>
+
+  <!-- Bottom: time-warp slider + snap -->
+  <footer class="hud-bottom">
+    <div class="timewarp glass">
+      <div class="tw-head">
+        <button id="btnPlay" class="tw-play" aria-label="Play time-warp">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+        </button>
+        <div class="tw-era">
+          <span class="tw-label" data-i18n="timeWarp">Time-Warp</span>
+          <strong id="eraText">2026 CE · Ruins</strong>
+        </div>
+        <span class="tw-pct" id="pctText">0%</span>
+      </div>
+      <div class="tw-track">
+        <span class="tw-end" data-i18n="endNow">2026 Ruins</span>
+        <input id="slider" type="range" min="0" max="100" value="0" step="0.1" aria-label="Time-warp between 2026 ruins and 2nd century CE">
+        <span class="tw-end right" data-i18n="endPast">2nd Century CE</span>
+      </div>
+    </div>
+    <button id="btnSnap" class="snap" aria-label="Snap tourist photo" title="Snap tourist photo">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.6"/></svg>
+    </button>
+  </footer>
+
+  <!-- Photo preview -->
+  <div id="photoModal" class="modal" hidden>
+    <div class="modal-box glass">
+      <img id="photoImg" alt="Snapshot of the Takht-i-Bahi digital twin">
+      <div class="modal-actions">
+        <a id="photoDownload" class="pill-btn" download="takht-i-bahi-kpitb-2026.jpg" data-i18n="save">Save photo</a>
+        <button id="photoShare" class="pill-btn ghost" data-i18n="share" hidden>Share</button>
+        <button id="photoClose" class="pill-btn ghost" data-i18n="close">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- About -->
+  <div id="aboutModal" class="modal" hidden>
+    <div class="modal-box glass about">
+      <h2 data-i18n="aboutTitle">About this Digital Twin</h2>
+      <p data-i18n="aboutBody">The 2026 ruins are a photogrammetry scan of the Stupa Court re-centred on the Main Stupa plinth. The 2nd-century reconstruction is generated procedurally on the same origin, so both layers line up to the centimetre.</p>
+      <ul class="facts" id="facts"></ul>
+      <button class="pill-btn" id="aboutClose" data-i18n="close">Close</button>
+    </div>
+  </div>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+  <script type="module" src="app.js?v=3"></script>
+</body>
+</html>

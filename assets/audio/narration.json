@@ -1,0 +1,47 @@
+{
+  "stupa_en": {
+    "file": "stupa_en.mp3",
+    "voice": "en-GB-RyanNeural",
+    "text": "The Main Stupa. At the heart of the Stupa Court stood the monastery’s most sacred monument. A square plinth with a north stairway carried a moulded drum, the hemispherical dome (anda), the railed harmika and a mast of five tiered umbrellas (chattras). Pilgrims walked clockwise around it in pradakshina. Takht-i-Bahi was founded in the 1st century CE and flourished under the Kushans until about the 7th century."
+  },
+  "stupa_ur": {
+    "file": "stupa_ur.mp3",
+    "voice": "ur-PK-AsadNeural",
+    "text": "مرکزی اسٹوپا. اسٹوپا کورٹ کے بیچ میں کھڑا یہ اسٹوپا خانقاہ کی سب سے مقدس یادگار تھا۔ شمالی سیڑھی والے مربع چبوترے پر ایک نقش دار ڈرم، نیم کروی گنبد (انڈا)، جنگلے دار ہرمیکا اور پانچ منزلہ چھتریوں والا ستون قائم تھا۔ زائرین اس کے گرد گھڑی کی سمت میں طواف کرتے تھے۔ تختِ بائی کی بنیاد پہلی صدی عیسوی میں رکھی گئی اور یہ کُشان دور سے ساتویں صدی تک آباد رہا۔"
+  },
+  "stupa_ps": {
+    "file": "stupa_ps.mp3",
+    "voice": "ps-AF-GulNawazNeural",
+    "text": "لوی سټوپا. د سټوپا انګړ په منځ کې دا سټوپا د خانقاه تر ټولو سپېڅلې ودانۍ وه. د شمالي زینو لرونکې څلورګوټې چبوترې پر سر یو نقش لرونکی ډرم، نیم ګردی ګنبد (انډا)، کټاره لرونکې هرمیکا او د پنځو پوړیزو چترونو ستن ولاړه وه. زیارت کوونکو به یې د ساعت د ستنې په لور طواف کاوه. تخت بهائي په لومړۍ عیسوي پېړۍ کې جوړ شو او د کوشانیانو له دورې تر اوومې پېړۍ پورې آباد و."
+  },
+  "relic_en": {
+    "file": "relic_en.mp3",
+    "voice": "en-GB-RyanNeural",
+    "text": "Relic Chamber. Deep inside the drum lay the relic chamber — the reason a stupa exists. Sealed reliquaries of schist, crystal or gold held sacred relics such as bone, ash or texts, enshrining the presence of the Buddha. Switch on X-ray view to see the casket hidden in the core."
+  },
+  "relic_ur": {
+    "file": "relic_ur.mp3",
+    "voice": "ur-PK-AsadNeural",
+    "text": "تبرکات کا حجرہ. ڈرم کے اندر گہرائی میں تبرکات کا حجرہ تھا، جو اسٹوپا کی تعمیر کی اصل وجہ ہے۔ شیسٹ پتھر، بلور یا سونے کے مہر بند صندوقچوں میں مقدس تبرکات رکھے جاتے تھے۔ اندر چھپا صندوقچہ دیکھنے کے لیے ایکسرے منظر کھولیں۔"
+  },
+  "relic_ps": {
+    "file": "relic_ps.mp3",
+    "voice": "ps-AF-GulNawazNeural",
+    "text": "د تبرکاتو خونه. د ډرم په ژور کې د تبرکاتو خونه وه، چې د سټوپا د جوړولو اصلي موخه ده. د شیسټ ډبرې، بلور یا سرو زرو په تړلو صندوقچو کې سپېڅلي تبرکات ساتل کېدل. دننه پټه صندوقچه د لیدو لپاره ایکسرې لید پرانیزئ."
+  },
+  "niche_en": {
+    "file": "niche_en.mp3",
+    "voice": "en-GB-RyanNeural",
+    "text": "Buddha Niches. Small chapels with arched caitya façades ring the court on three sides. Each housed a Buddha or Bodhisattva in schist or lime stucco, often gilded or painted. Here the Buddha sits in dhyana mudra, the gesture of meditation — a hallmark of Gandharan art, where Greco-Roman and South Asian traditions met."
+  },
+  "niche_ur": {
+    "file": "niche_ur.mp3",
+    "voice": "ur-PK-AsadNeural",
+    "text": "بدھا کے طاق. صحن کے تین اطراف محراب دار چیتیہ طرز کے چھوٹے عبادت خانے ہیں۔ ہر ایک میں شیسٹ پتھر یا چونے کے پلستر سے بنی بدھا یا بودھی ستوا کی مورتی ہوتی تھی، جن پر اکثر سنہری رنگ کیا جاتا تھا۔ یہاں بدھا دھیان مدرا یعنی مراقبے کی حالت میں بیٹھے ہیں۔ یہ گندھارا فن کی پہچان ہے، جہاں یونانی، رومی اور جنوبی ایشیائی روایات آپس میں ملیں۔"
+  },
+  "niche_ps": {
+    "file": "niche_ps.mp3",
+    "voice": "ps-AF-GulNawazNeural",
+    "text": "د بودا طاقونه. د انګړ په دریو خواوو کې د محراب لرونکو چیتیا مخونو کوچني عبادت ځایونه دي. په هر یوه کې به د شیسټ ډبرې یا چونې د بودا یا بودیستوا مجسمه وه چې ډېری وخت به زرینه رنګ شوې وه. دلته بودا د دهیان مدرا، یعنې د مراقبې په حالت کې ناست دی. دا د ګندهارا هنر نښه ده چې یوناني، رومي او سویلي آسیايي دودونه پکې سره یوځای شول."
+  }
+}

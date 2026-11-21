@@ -3,3 +3,6 @@ numpy
 scipy
 pillow
 fast_simplification
+edge-tts
+gTTS
+matplotlib

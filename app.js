@@ -243,9 +243,22 @@ function setProgress() {
 function loadGLB(url, key) {
   const loader = new GLTFLoader();
   return new Promise((resolve, reject) => {
-    loader.load(url, (g) => { progress[key] = 1; setProgress(); resolve(g.scene); },
-      (e) => { if (e.total) { progress[key] = Math.min(e.loaded / e.total, 0.99);  // gzip on GitHub Pages makes loaded > total setProgress(); } },
-      reject);
+    loader.load(
+      url,
+      (g) => {
+        progress[key] = 1;
+        setProgress();
+        resolve(g.scene);
+      },
+      (e) => {
+        if (e.total) {
+          // GitHub Pages gzips responses, so `loaded` can exceed `total`: cap below 100 %
+          progress[key] = Math.min(e.loaded / e.total, 0.99);
+          setProgress();
+        }
+      },
+      reject
+    );
   });
 }
 
